@@ -88,10 +88,10 @@ X_test = scaler.transform(X_test)
 # MODELS
 # ----------------------------
 models = {
-   #"Logistic Regression": LogisticRegression(max_iter=100),
+   "Logistic Regression": LogisticRegression(max_iter=100),
     "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
-    #"Gradient Boosting": GradientBoostingClassifier(),
-   # "SVM": SVC(kernel="linear")
+    "Gradient Boosting": GradientBoostingClassifier(),
+    "SVM": SVC(kernel="linear")
 }
 
 # ----------------------------
@@ -156,3 +156,10 @@ print(cm)
 # ----------------------------
 print("\nLABEL DISTRIBUTION:")
 print(df["label"].value_counts())
+# ----------------------------
+# SAVE BEST MODEL
+# ----------------------------
+import joblib
+
+joblib.dump(model, "phishing_model.pkl")
+print("Model saved successfully!")
