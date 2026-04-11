@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import joblib
+import re
 
 app = FastAPI()
 
@@ -14,12 +15,27 @@ app.add_middleware(
 
 model = joblib.load("model.pkl")
 
-@app.get("/")
-def home():
-    return {"message": "API is running"}
+
+def extract_features(url):
+    return [
+        len(url),
+        url.count("."),
+        url.count("-"),
+        url.count("@"),
+        int("https" in url),
+        int("http://" in url),
+        int(bool(re.search(r"\d", url))),
+        len(url.split("/")),
+    ]
+
 
 @app.post("/predict")
 def predict(data: dict):
-    features = data["features"]
-    prediction = model.predict([features])
-    return {"prediction": int(prediction[0])}
+    url = data["url"]
+
+    features = extract_features(url)
+
+    prediction = model.predict([features])[0]
+
+    
+    return {"prediction": int(prediction)}
