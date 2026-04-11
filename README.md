@@ -57,6 +57,12 @@ The system follows a structured pipeline:
 
 ---
 
+Dataset:
+- 808,042 URLs (Kaggle dataset)
+- Sampled 20,000 for training due to computational constraints
+  
+---
+
 ## 📈 Evaluation Metrics
 The following metrics were used:
 
