@@ -5,20 +5,12 @@ function App() {
   const [result, setResult] = useState("");
 
   const handleCheck = async () => {
-    // VERY SIMPLE feature extraction (for now)
-    const features = [
-      url.length,
-      (url.match(/\./g) || []).length,
-      url.includes("@") ? 1 : 0,
-      url.startsWith("https") ? 1 : 0,
-    ];
-
     const response = await fetch("http://127.0.0.1:8000/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ features }),
+      body: JSON.stringify({ url }),
     });
 
     const data = await response.json();
