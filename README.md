@@ -60,7 +60,9 @@ The system follows a structured pipeline:
 Dataset:
 - 808,042 URLs (Kaggle dataset)
 - Sampled 20,000 for training due to computational constraints
-  
+Binary classification: phishing vs legitimate
+
+  👉 This ensures both scalability and computational feasibility during experimentation.
 ---
 
 ## 📈 Evaluation Metrics
