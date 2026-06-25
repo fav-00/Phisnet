@@ -4,6 +4,7 @@ import math
 import re
 import numpy as np
 import pandas as pd
+import os
 from collections import Counter
 
 # 1. Page Settings
@@ -13,7 +14,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# 2. Entropy and Feature Extraction (Identical to your Training/API code)
+# 2. Entropy and Feature Extraction (Fixed Domain Bug)
 def entropy(url):
     p, lns = Counter(url), float(len(url))
     return -sum(count/lns * math.log2(count/lns) for count in p.values())
@@ -21,6 +22,7 @@ def entropy(url):
 def extract_features(url):
     url = str(url).lower()
     domain_split = url.split("://")[-1].split("/")
+    # FIXED: Extracting index 0 properly so domain remains a string
     domain = domain_split[0] if len(domain_split) > 0 else url
     return [
         len(url),
@@ -63,22 +65,25 @@ def extract_features(url):
         int(bool(re.search(r"verify-account|secure-login|update-info", url)))
     ]
 
-# 3. Cache the Models and Scaler
+# 3. Cache the Models and Scaler (Handles paths when run from backend/)
 @st.cache_resource
 def load_assets():
+    # Detect running directory to prevent FileNotFoundError on Streamlit Cloud
+    base_dir = os.path.dirname(__file__) if "__file__" in locals() else "."
+    
     models = {
-        "Random Forest": joblib.load("rf_model.pkl"),
-        "Gradient Boosting": joblib.load("gb_model.pkl"),
-        "Logistic Regression": joblib.load("lr_model.pkl"),
-        "SVM": joblib.load("svm_model.pkl")
+        "Random Forest": joblib.load(os.path.join(base_dir, "rf_model.pkl")),
+        "Gradient Boosting": joblib.load(os.path.join(base_dir, "gb_model.pkl")),
+        "Logistic Regression": joblib.load(os.path.join(base_dir, "lr_model.pkl")),
+        "SVM": joblib.load(os.path.join(base_dir, "svm_model.pkl"))
     }
-    scaler = joblib.load("scaler.pkl")
+    scaler = joblib.load(os.path.join(base_dir, "scaler.pkl"))
     return models, scaler
 
 try:
     models, scaler = load_assets()
 except Exception as e:
-    st.error(f"❌ Error loading assets. Make sure pkl files are in the same directory. Error: {e}")
+    st.error(f"❌ Error loading assets. Make sure your .pkl files are in the same folder as streamlit_app.py. Error: {e}")
     st.stop()
 
 # 4. App UI Layout
@@ -90,7 +95,7 @@ tab1, tab2 = st.tabs(["🎯 Single Model Predictor", "📊 Multi-Model Compariso
 
 with tab1:
     st.subheader("Analyze with a specific model")
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns(2)
     
     with col1:
         url_input = st.text_input("Enter URL to Test:", placeholder="http://example.com", key="single_url")
@@ -108,12 +113,10 @@ with tab1:
                 model = models[selected_model]
                 pred = int(model.predict(scaled_feats)[0])
                 
-                # Probability handling (SVM uses LinearSVC which doesn't have predict_proba)
                 proba = None
                 if hasattr(model, "predict_proba"):
                     proba = float(model.predict_proba(scaled_feats)[0][1])
                 
-                # Result UI Cards
                 st.write("### Analysis Verdict")
                 if pred == 1:
                     st.error(f"🚨 **DANGER: This URL is classified as PHISHING by {selected_model}!**")
@@ -153,5 +156,4 @@ with tab2:
                         "Confidence Level": confidence_str
                     })
                 
-                # Render clear comparison matrix table
                 st.dataframe(pd.DataFrame(summary_data), use_container_width=True)
