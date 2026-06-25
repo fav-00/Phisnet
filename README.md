@@ -1,9 +1,9 @@
-# 🧠 PhisNet – Phishing Website Detection System
+    git# 🧠 PhisNet – Phishing Website Detection System
 
 ## 📌 Overview
-PhisNet is a full-stack machine learning system designed to detect phishing websites using supervised learning techniques. The system analyzes URL-based features and classifies websites as **legitimate (0)** or **phishing (1)**.
+PhisNet is a full-stack machine learning system designed to detect phishing websites using supervised learning models. It analyzes URL-based features and classifies websites as **legitimate or malicious**.
 
-It integrates:
+The project combines:
 - Machine Learning (model training & evaluation)
 - Backend API (prediction system)
 - Frontend interface (user interaction)
@@ -11,100 +11,58 @@ It integrates:
 ---
 
 ## 🎯 Objectives
-- Develop a phishing detection classifier using machine learning
-- Perform comparative analysis of multiple models
-- Evaluate performance using standard classification metrics
-- Build a functional full-stack system for real-time prediction
+- Build a phishing detection classifier using ML
+- Compare multiple models using evaluation metrics
+- Deploy a functional system (frontend + backend)
+- Analyze performance using standard classification metrics
 
 ---
 
 ## ⚙️ System Architecture
-
-![System Architecture](system_architecture.png)
-
-The system follows a structured pipeline:
-
-1. User inputs a URL via the frontend  
-2. Request is sent to the backend API  
-3. Backend performs feature extraction on the URL  
-4. Extracted features are converted into a numerical vector  
-5. The trained ML model classifies the URL  
-6. Result (Phishing / Legitimate) is returned to the user  
+- **Backend:** Python (Flask / ML pipeline)
+- **Frontend:** React.js
+- **Model:** Trained ML classifier saved as `.pkl`
+- **Dataset:** URL-based phishing dataset
 
 ---
 
 ## 📊 Model Evaluation Results
 
-| Model | Accuracy | Precision | Recall | F1 Score |
-|------|----------|-----------|--------|----------|
-| Logistic Regression | 0.807 | 0.789 | 0.868 | 0.827 |
-| Random Forest | **0.879** | **0.874** | 0.901 | **0.888** |
-| Gradient Boosting | 0.873 | 0.845 | **0.931** | 0.886 |
-| SVM | 0.810 | 0.787 | 0.880 | 0.831 |
+| Model | Accuracy | Precision | Recall | F1 Score | RMSE |
+|------|----------|-----------|--------|----------|------|
+| Model 1 | XX | XX | XX | XX | XX |
+| Model 2 | XX | XX | XX | XX | XX |
 
-👉 **Best Model:** Random Forest (highest F1 Score and balanced performance)
+👉 Best performing model was selected based on F1-score and overall balance of precision/recall.
+
+---
+
+## 📈 Evaluation Metrics
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- RMSE
+
+These metrics were used to compare model performance and select the optimal classifier.
 
 ---
 
 ## 📊 Model Performance Comparison
 
-![Model Comparison](model_comparison.png)
+![Model Comparison](phisnet_model_comparison.png)
 
-### 🔍 Key Insights
-- **Random Forest** achieved the best overall performance (F1 Score: 0.888)
-- **Gradient Boosting** achieved the highest recall (0.931), making it effective at detecting phishing URLs
-- **Logistic Regression** and **SVM** served as baseline models for comparison
+The models compared include Random Forest, Logistic Regression, Gradient Boosting, and SVM. Random Forest and Gradient Boosting performed best based on accuracy and F1-score.
 
 ---
-
-Dataset:
-- 808,042 URLs (Kaggle dataset)
-- Sampled 20,000 for training due to computational constraints
-Binary classification: phishing vs legitimate
-
-  👉 This ensures both scalability and computational feasibility during experimentation.
----
-
-## 📈 Evaluation Metrics
-The following metrics were used:
-
-- **Accuracy** – Overall correctness of predictions  
-- **Precision** – Correctness of phishing predictions  
-- **Recall** – Ability to detect phishing URLs  
-- **F1 Score** – Balance between precision and recall  
-
-These metrics ensure a comprehensive evaluation of model performance.
-
----
-
-## 🧪 Feature Engineering
-The system extracts meaningful features from URLs, including:
-
-- URL length  
-- Number of special characters  
-- Presence of HTTPS  
-- IP address detection  
-- Subdomain depth  
-- Suspicious keywords (e.g., login, verify, secure)  
-- Entropy (randomness of URL string)  
-
-These features enable effective classification of phishing patterns.
-
----
-
-## 🚀 Features
-- URL-based phishing detection  
-- Real-time prediction system  
-- Machine learning model comparison  
-- Full-stack implementation (React + Flask)  
 
 ---
 
 ## 🚀 Future Improvements
-- Enhance feature engineering techniques  
-- Incorporate deep learning models  
-- Deploy as a cloud-based API  
-- Improve frontend UI/UX  
+- Improve feature engineering for URLs
+- Add deep learning models
+- Deploy as a cloud-based API
+- Improve UI/UX of frontend dashboard
 
 ---
 
@@ -114,4 +72,4 @@ Built by a student developer exploring machine learning, cybersecurity, and full
 ---
 
 ## 📌 Note
-This project is part of ongoing research in applied machine learning and cybersecurity.
+This project is part of an ongoing learning and research process in applied machine learning.

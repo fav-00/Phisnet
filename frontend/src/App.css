@@ -1,38 +1,306 @@
-.App {
+:root {
+  --bg-dark: #090e1a;
+  --panel-bg: #12192c;
+  --input-bg: #0d1322;
+  --accent-blue: #0a84ff;
+  --text-main: #f5f5f7;
+  --text-muted: #6e7d95;
+  --danger: #ff453a;
+  --success: #30d158;
+  --warning: #ffd60a;
+  --panel-border: #1d2942;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Navigation Layout */
+.sidebar {
+  width: 240px;
+  background-color: #0b1120;
+  border-right: 1px solid var(--panel-border);
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  font-weight: 900;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  padding: 12px 16px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-item.active, .nav-item:hover {
+  background-color: rgba(10, 132, 255, 0.15);
+  color: var(--accent-blue);
+}
+
+/* Main Main Content Feed Area */
+.main-workspace {
+  flex: 1;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background: radial-gradient(circle at top right, #0f172a, #090e1a);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 20px;
+}
+
+.system-title h1 {
+  font-size: 24px;
+  margin: 0 0 4px 0;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.system-title p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.system-meta-clock {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  font-family: monospace;
+  color: var(--text-muted);
+}
+
+/* Structural Dashboard Container Panels */
+.system-panel-card {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.panel-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  color: #d1e8ff;
+  margin: 0 0 6px 0;
+}
+
+.panel-section-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+}
+
+/* Component 1 Form Elements Layout styles */
+.search-bar-wrapper {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.url-input-field {
+  flex: 1;
+  background-color: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 14px 18px;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.url-input-field:focus {
+  border-color: var(--accent-blue);
+  outline: none;
+}
+
+.scan-action-button {
+  background-color: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.scan-action-button:hover {
+  background-color: #0066cc;
+}
+
+/* Component 2 Alert States styles */
+.alert-placeholder-box {
+  border: 1px dashed var(--panel-border);
+  border-radius: 6px;
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.alert-output-banner {
+  padding: 24px;
+  border-radius: 6px;
+  text-align: center;
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.alert-output-banner.danger {
+  background: rgba(255, 69, 58, 0.1);
+  border: 2px solid var(--danger);
+  color: var(--danger);
+}
+
+.alert-output-banner.success {
+  background: rgba(48, 209, 88, 0.1);
+  border: 2px solid var(--success);
+  color: var(--success);
+}
+
+/* Component 3 Analytics Layout styles */
+.analytics-grid-split {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  margin-top: 15px;
+}
+
+.analytics-metrics-display {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.metric-mini-box {
+  background-color: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 16px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.metric-mini-box .title {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.metric-mini-box .value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 6px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.matrix-evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.matrix-evaluation-table th {
+  color: var(--text-muted);
+  padding: 10px;
+  border-bottom: 2px solid var(--panel-border);
+}
+
+.matrix-evaluation-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.highlight-rf-row {
+  font-weight: bold;
+  background-color: rgba(10, 132, 255, 0.04);
+  color: #fff;
+}
+
+/* Micro bar chart component graphics */
+.visual-bar-chart-container {
+  background-color: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 220px;
+}
+
+.chart-bars-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 160px;
+  padding-bottom: 10px;
+}
+
+.bar-column-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 8px;
+  width: 50px;
 }
 
-.App-link {
-  color: #61dafb;
+.bar-fill-track {
+  width: 24px;
+  border-radius: 3px 3px 0 0;
+  transition: height 0.5s ease-in-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bar-label-text {
+  font-size: 10px;
+  color: var(--text-muted);
 }
