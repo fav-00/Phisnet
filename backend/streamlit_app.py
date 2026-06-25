@@ -66,10 +66,13 @@ def extract_features(url):
     ]
 
 # 3. Cache the Models and Scaler (Handles paths when run from backend/)
+
 @st.cache_resource
 def load_assets():
-    # Detect running directory to prevent FileNotFoundError on Streamlit Cloud
+    # Force the path to look inside the 'backend' folder
     base_dir = os.path.dirname(__file__) if "__file__" in locals() else "."
+    if not os.path.basename(base_dir) == "backend" and os.path.exists("backend"):
+        base_dir = os.path.join(base_dir, "backend")
     
     models = {
         "Random Forest": joblib.load(os.path.join(base_dir, "rf_model.pkl")),
@@ -79,6 +82,7 @@ def load_assets():
     }
     scaler = joblib.load(os.path.join(base_dir, "scaler.pkl"))
     return models, scaler
+
 
 try:
     models, scaler = load_assets()
