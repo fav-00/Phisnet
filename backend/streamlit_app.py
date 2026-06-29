@@ -122,7 +122,7 @@ with st.sidebar:
 # ==============================================================================
 # 4. MAIN WORKSPACE TOP-BAR TELEMETRY AREA
 # ==============================================================================
-col_title, col_clock = st.columns()
+col_title, col_clock = st.columns([2, 1])
 with col_title:
     st.markdown("""
     <div style="font-family:sans-serif;">
